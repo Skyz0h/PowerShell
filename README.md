@@ -1,26 +1,48 @@
 # PowerShell
 
-This repository is a collection of my personal profile.ps1 settings, modules, and functions that I have written over the years. It's important to note that some of this is company specific and may need to be slightly modified to fit other environments.
+This repository is a collection of my personal profile.ps1 settings, modules, scripts and functions that I have written over the years. It's important to note that some of this is company specific and may need to be slightly modified to fit other environments.
 
 ## Usage
 
-Clone this repository to your $HOME directory. From there, I symlink the profile.ps1 to it's appropriate locations. This can be determined by running
+Clone this repository to your $HOME directory. From there, symlink the profile.ps1 to it's appropriate locations. 
 
+Profile locations can be determined by running:
 ```powershell
 $PROFILE | Select-Object *  
 
-#Example output from a linux host
+# Example output from a linux host
 AllUsersAllHosts       : /opt/microsoft/powershell/7/profile.ps1
 AllUsersCurrentHost    : /opt/microsoft/powershell/7/Microsoft.PowerShell_profile.ps1
 CurrentUserAllHosts    : /home/user/.config/powershell/profile.ps1
 CurrentUserCurrentHost : /home/user/.config/powershell/Microsoft.PowerShell_profile.ps1
 
+# Example out from a Windows host
+AllUsersAllHosts       : C:\Program Files\PowerShell\7\profile.ps1
+AllUsersCurrentHost    : C:\Program Files\PowerShell\7\Microsoft.PowerShell_profile.ps1
+CurrentUserAllHosts    : C:\Users\user\Documents\PowerShell\profile.ps1
+CurrentUserCurrentHost : C:\Users\user\Documents\PowerShell\Microsoft.PowerShell_profile.ps1
 ```
 
-Create the symlink
+Create the symlink to the appropriate profile. For example, to create the symlink to the CurrentUsersAllHosts profile:
 ```powershell
+# This will set up the profile for the respective version of Powershell you're using
+
+$localRepoPath = "C:\users\pkadmin\github\PowerShell" # $localRepoPath is the filepath where you cloned this repo. 
+$profileSelection = $PROFILE.CurrentUserAllHosts # Change this accordingly. I typically use CurrentUserAllHosts
+
+IF(!(Test-Path $profileSelection)){
+    New-Item -ItemType SymbolicLink -Name $profileSelection -Value $localRepoPath\Profiles\profile.ps1 -Force
+}else{
+    Write-Host -ForegroundColor Yellow "$profileSelection already exists. Creating Backup..."
+    Rename-Item -path $profileSelection -NewName (-join($profileSelection + ".bak"))
+    Write-Host -ForegroundColor Green "Creating symlink $profileSelection ..."
+    New-Item -ItemType SymbolicLink -Path $profileSelection -Value $localRepoPath\Profiles\profile.ps1 -Force
+}
 
 ```
+
+
+
 
 
 ## Contributing
