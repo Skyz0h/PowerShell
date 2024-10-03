@@ -14,7 +14,7 @@ $profileSelection = $PROFILE.CurrentUserAllHosts # Change this accordingly. I ty
 $profileFromRepo = (-join($localRepoPath + $slash + "Profiles$slash" + "profile.ps1"))
 
 IF(!(Test-Path $profileSelection)){
-    New-Item -ItemType SymbolicLink -Name $profileSelection -Value $profileFromRepo -Force
+    New-Item -ItemType SymbolicLink -Path $profileSelection -Value $profileFromRepo -Force
 }else{
     Write-Host -ForegroundColor Yellow "$profileSelection already exists. Creating Backup..."
     Rename-Item -path $profileSelection -NewName (-join($profileSelection + ".bak"))
