@@ -40,7 +40,6 @@ function CustomizeConsole {
 function Prompt {
 	$prompt = -join("[" + (Get-Date -format HH:mm:ss) + "][" + ($env:USERNAME) + "@$prettyName" + "] " + ($PWD) + "> ")
 	return $prompt;
-  
 }
 
 function unzip ($file){
@@ -70,10 +69,9 @@ function Get-PublicIP{
 
 #### Windows Specific Functions ####
 IF($IsWindows){
-		function touch($file) {
+	function touch($file) {
 			"" | Out-File $file -Encoding ASCII
 	}
-
 	function df {
 		Get-Volume
 	}
