@@ -26,8 +26,6 @@ CurrentUserCurrentHost : C:\Users\user\Documents\PowerShell\Microsoft.PowerShell
 Create the symlink to the appropriate profile. For example, to create the symlink to the CurrentUsersAllHosts profile:
 ```powershell
 # This will set up the profile for the respective version of Powershell you're using
-
-# This will set up the profile for the respective version of Powershell you're using
 $vers = (-join("v" + ($Host.Version.Major).ToString()))
 IF($vers -eq "v5"){
 	$IsWindows = $True
