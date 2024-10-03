@@ -27,21 +27,31 @@ Create the symlink to the appropriate profile. For example, to create the symlin
 ```powershell
 # This will set up the profile for the respective version of Powershell you're using
 
-$localRepoPath = "C:\users\pkadmin\github\PowerShell" # $localRepoPath is the filepath where you cloned this repo. 
+# This will set up the profile for the respective version of Powershell you're using
+$vers = (-join("v" + ($Host.Version.Major).ToString()))
+IF($vers -eq "v5"){
+	$IsWindows = $True
+}
+
+IF($IsWindows){
+    $slash = '\'
+}else{
+    $slash = '/'
+}
+$localRepoPath = -join($HOME + $slash + "projects$slash" + "PowerShell") # $localRepoPath is the filepath where you cloned this repo. 
 $profileSelection = $PROFILE.CurrentUserAllHosts # Change this accordingly. I typically use CurrentUserAllHosts
+$profileFromRepo = (-join($localRepoPath + $slash + "Profiles$slash" + "profile.ps1"))
 
 IF(!(Test-Path $profileSelection)){
-    New-Item -ItemType SymbolicLink -Name $profileSelection -Value $localRepoPath\Profiles\profile.ps1 -Force
+    New-Item -ItemType SymbolicLink -Path $profileSelection -Value $profileFromRepo -Force
 }else{
     Write-Host -ForegroundColor Yellow "$profileSelection already exists. Creating Backup..."
     Rename-Item -path $profileSelection -NewName (-join($profileSelection + ".bak"))
     Write-Host -ForegroundColor Green "Creating symlink $profileSelection ..."
-    New-Item -ItemType SymbolicLink -Path $profileSelection -Value $localRepoPath\Profiles\profile.ps1 -Force
+    New-Item -ItemType SymbolicLink -Path $profileSelection -Value $profileFromRepo -Force
 }
-
 ```
-
-
+The above code is also included in the Profiles directory as setup.ps1
 
 
 
