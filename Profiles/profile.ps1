@@ -19,6 +19,9 @@ $prettyName = $env:COMPUTERNAME.ToUpper()
 
 #### Aliases ####
 Set-Alias -Name ll -Value Get-ChildItem
+Set-Alias -Name sel -Value Select-Object
+
+
 
 #### Start Logging ####
 $linuxLogPath = '/mnt/networkhome'
@@ -68,6 +71,19 @@ function hist {
 
 function Get-PublicIP {
 	(Invoke-WebRequest http://ifconfig.me/ip ).Content
+}
+
+function sela {
+	[cmdletbinding()]
+	param(
+		[parameter(
+			Mandatory = $true,
+			ValueFromPipeline = $true)]
+		$pipelineInput
+	)
+	process {
+	$pipelineInput | Select-Object *
+	}
 }
 
 #### Windows Specific Functions ####
