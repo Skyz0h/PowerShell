@@ -20,7 +20,7 @@ $prettyName = $env:COMPUTERNAME.ToUpper()
 #### Aliases ####
 Set-Alias -Name ll -Value Get-ChildItem
 Set-Alias -Name sel -Value Select-Object
-
+Set-Alias -Name clip -Value Set-Clipboard
 
 
 #### Start Logging ####
