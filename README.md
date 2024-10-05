@@ -4,13 +4,21 @@ This repository is a collection of my personal profile.ps1 settings, modules, sc
 
 ## Usage
 
-### Easy Mode:
+### Automated setup
 
+Make sure you have your Github PAT set up as an environment variable and then run the following in your $HOME\Projects directory:
+```powershell
+$headers = @{    
+    Authorization = "token $env:github_token"
+    'User-Agent'  = "PowerShell"
+}
+iex ([System.Text.Encoding]::ASCII.GetString([Convert]::FromBase64String((Invoke-RestMethod -Uri $repoUrl -Headers $headers).Content)))
 
-Clone this repository to your $HOME directory. Navigate to the Profiles folder of this repository, and run setup.ps1.
+```
 
+### Manual setup
 
-### Manual Setup:
+#### Profile:
    
    Determine the profile you want to set up. Profile locations can be determined by running:
 ```powershell
@@ -35,9 +43,13 @@ Create the symlink to the appropriate profile. For example, to create the symlin
 New-Item -ItemType SymbolicLink -Path $PROFILE.CurrentUsersAllHosts -Value C:\users\User\projects\PowerShell\Profiles\profile.ps1 -Force
 
 ```
+#### Modules
 
+Placeholder content
 
+#### Scripts
 
+Placeholder content
 
 
 ## Contributing
