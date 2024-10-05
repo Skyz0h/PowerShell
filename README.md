@@ -4,9 +4,15 @@ This repository is a collection of my personal profile.ps1 settings, modules, sc
 
 ## Usage
 
-Clone this repository to your $HOME directory. From there, symlink the profile.ps1 to it's appropriate locations. 
+### Easy Mode:
 
-Profile locations can be determined by running:
+
+Clone this repository to your $HOME directory. Navigate to the Profiles folder of this repository, and run setup.ps1.
+
+
+### Manual Setup:
+   
+   Determine the profile you want to set up. Profile locations can be determined by running:
 ```powershell
 $PROFILE | Select-Object *  
 
@@ -25,31 +31,12 @@ CurrentUserCurrentHost : C:\Users\user\Documents\PowerShell\Microsoft.PowerShell
 
 Create the symlink to the appropriate profile. For example, to create the symlink to the CurrentUsersAllHosts profile:
 ```powershell
-# This will set up the profile for the respective version of Powershell you're using
-$vers = (-join("v" + ($Host.Version.Major).ToString()))
-IF($vers -eq "v5"){
-	$IsWindows = $True
-}
 
-IF($IsWindows){
-    $slash = '\'
-}else{
-    $slash = '/'
-}
-$localRepoPath = -join($HOME + $slash + "projects$slash" + "PowerShell") # $localRepoPath is the filepath where you cloned this repo. 
-$profileSelection = $PROFILE.CurrentUserAllHosts # Change this accordingly. I typically use CurrentUserAllHosts
-$profileFromRepo = (-join($localRepoPath + $slash + "Profiles$slash" + "profile.ps1"))
+New-Item -ItemType SymbolicLink -Path $PROFILE.CurrentUsersAllHosts -Value C:\users\User\projects\PowerShell\Profiles\profile.ps1 -Force
 
-IF(!(Test-Path $profileSelection)){
-    New-Item -ItemType SymbolicLink -Path $profileSelection -Value $profileFromRepo -Force
-}else{
-    Write-Host -ForegroundColor Yellow "$profileSelection already exists. Creating Backup..."
-    Rename-Item -path $profileSelection -NewName (-join($profileSelection + ".bak"))
-    Write-Host -ForegroundColor Green "Creating symlink $profileSelection ..."
-    New-Item -ItemType SymbolicLink -Path $profileSelection -Value $profileFromRepo -Force
-}
 ```
-The above code is also included in the Profiles directory as setup.ps1
+
+
 
 
 
