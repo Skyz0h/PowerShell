@@ -1,11 +1,11 @@
-##################
-# Global Variables
-##################
-
-
-$head = @"
-
-
+function Test-AllDomainControllers{
+    [CmdletBinding()]
+    param (
+        [Parameter(Position=0,mandatory=$true)]
+        [string]
+        $LogPath
+    )
+    $head = @"
 <style>
     body
   {
@@ -53,12 +53,6 @@ $head = @"
 
 </style>
 "@
-
-
-###############
-# Functions
-###############
-
 Function Get-AllDomainControllers {
     $allDomainControllers = Get-ADDomainController -Filter *
     return $allDomainControllers.HostName
@@ -109,11 +103,7 @@ $finalReport = $report `
     -replace '<table>', '<div class="container"><table class="result-table">' `
     -replace '<tr><td><hr></td></tr>', '</table><br><br><table class="result-table">' `
 
+$finalReport | Out-File $LogPath -Force -Confirm:$false
+Invoke-Item $LogPath
 
-
-
-
-
-#Send-MailMessage -From $from -to $to -subject "AD Health Check for $datetime" -Body "$finalReport" -BodyAsHtml -SmtpServer $smtp
-$finalReport | Out-File C:\admin\scripts\MorningRecap\dctest.html -Force -Confirm:$false
-#Invoke-Item C:\users\pkadmin\Desktop\currently_working_on\dctest.html
+}
