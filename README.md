@@ -12,7 +12,7 @@ $headers = @{
     Authorization = "token $env:github_token"
     'User-Agent'  = "PowerShell"
 }
-$repoUrl = "https://api.github.com/repos/Skyz0h/PowerShell/contents/Profiles/setup.ps1"
+$repoUrl = "https://api.github.com/repos/Skyz0h/PowerShell/contents/Scripts/setup.ps1"
 iex ([System.Text.Encoding]::ASCII.GetString([Convert]::FromBase64String((Invoke-RestMethod -Uri $repoUrl -Headers $headers).Content)))
 
 ```
