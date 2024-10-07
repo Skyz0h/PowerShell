@@ -1,6 +1,6 @@
 # PowerShell
 
-This repository is a collection of my personal profile.ps1 settings, modules, scripts and functions that I have written over the years. It's important to note that some of this is company specific and may need to be slightly modified to fit other environments.
+This repository is a collection of my personal profile.ps1 settings, modules, scripts and functions that I have written over the years. It's important to note that some of this may need to be slightly modified to fit other environments.
 
 ## Usage
 
