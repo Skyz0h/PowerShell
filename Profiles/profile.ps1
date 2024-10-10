@@ -101,6 +101,9 @@ IF ($IsWindows) {
 	function which($name) {
 		Get-Command $name | Select-Object -ExpandProperty Definition
 	}
+	function cat($filename)
+		Get-Content -Raw $filename
+	}
 }
 
 CustomizeConsole
