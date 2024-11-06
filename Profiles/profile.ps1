@@ -88,6 +88,7 @@ function sela {
 
 #### Windows Specific Functions ####
 IF ($IsWindows) {
+	Import-Module PSPKI -ErrorAction SilentlyContinue
 	function touch($file) {
 		"" | Out-File $file -Encoding ASCII
 	}
