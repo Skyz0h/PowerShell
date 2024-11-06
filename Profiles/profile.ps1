@@ -35,6 +35,11 @@ else {
 }
 
 #### Functions ####
+function Get-Path {
+	($env:Path).Split(';')
+}
+
+
 function CustomizeConsole {
 	$hostversion = "$($Host.Version.Major)`.$($Host.Version.Minor)`.$($Host.Version.Build)"
 	$title = "PowerShell $hostversion"
@@ -88,7 +93,7 @@ function sela {
 
 #### Windows Specific Functions ####
 IF ($IsWindows) {
-	Import-Module PSPKI -ErrorAction SilentlyContinue
+	#Import-Module PSPKI -ErrorAction SilentlyContinue
 	function touch($file) {
 		"" | Out-File $file -Encoding ASCII
 	}
