@@ -103,13 +103,21 @@ IF ($IsWindows) {
 	}
 
 	function npp ($file) {
-		Start-Process 'C:\Program Files (x86)\Notepad++\notepad++.exe' -ArgumentList "$file"
+		Start-Process 'C:\Program Files\Notepad++\notepad++.exe' -ArgumentList "$file"
 	}
 	function which($name) {
 		Get-Command $name | Select-Object -ExpandProperty Definition
 	}
 	function cat($filename) {
 		Get-Content -Raw $filename
+	}
+	function Get-PasswordLastSet ($user) {
+		[datetime]::FromFileTime((Get-Aduser $user -Properties * | Select -exp pwdLastSet))
+	}
+	function Get-RandomPassword {
+		$pw = -join ((65..90) + (97..122) + (48..57) + (33,35,36,37,38,42) | Get-Random -Count 24 | ForEach-Object {[char]$_}) 
+		$pw | Set-Clipboard
+		return $pw
 	}
 }
 
