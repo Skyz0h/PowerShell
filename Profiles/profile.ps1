@@ -89,6 +89,12 @@ function sela {
 	}
 }
 
+function Get-RandomPassword {
+	$pw = -join ((65..90) + (97..122) + (48..57) + (33,35,36,37,38,42) | Get-Random -Count 24 | ForEach-Object {[char]$_}) 
+	$pw | Set-Clipboard
+	return $pw
+}
+
 #### Windows Specific Functions ####
 IF ($IsWindows) {
 	#Import-Module PSPKI -ErrorAction SilentlyContinue
@@ -113,11 +119,6 @@ IF ($IsWindows) {
 	}
 	function Get-PasswordLastSet ($user) {
 		[datetime]::FromFileTime((Get-Aduser $user -Properties * | Select -exp pwdLastSet))
-	}
-	function Get-RandomPassword {
-		$pw = -join ((65..90) + (97..122) + (48..57) + (33,35,36,37,38,42) | Get-Random -Count 24 | ForEach-Object {[char]$_}) 
-		$pw | Set-Clipboard
-		return $pw
 	}
 }
 
