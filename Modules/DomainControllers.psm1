@@ -108,6 +108,6 @@ function Test-AllDomainControllers {
         Invoke-Item $LogPath
     }
     else {
-        return $allTestedDomainControllers | ft * 
+        return $allTestedDomainControllers
     }
 }
